@@ -28,12 +28,12 @@ let appcfgrst = Cfg.get('app.cfg.rst');
 let apppwmtime = Cfg.get('app.pwm.time');
 let apppwmgra = Cfg.get('app.pwm.gra');
 let oldspeed = Cfg.get('app.old.speed');
-let apppwnnight = Cfg.get('app.pwm.night');
+let apppwmnight = Cfg.get('app.pwm.night');
 let appnightspeed = Cfg.get('app.night.speed');
 let appboosttime = Cfg.get('app.boost.time');
 let appmodeboost = Cfg.get('app.mode.boost');
 let appmodeavto = Cfg.get('app.mode.avto');
-let appmodenight = Cfg.get('app.mode.nigh');
+let appmodenight = Cfg.get('app.mode.night');
 let appmodesummer = Cfg.get('app.mode.summer');
 
 let speedpwm = 50;
@@ -190,7 +190,7 @@ let oldtimer = Timer.set(apppwmtime, true, function() {
 
 // shranjevanje parametrov za konfiguracijo in status vsakih 10 minut
 
-let configtimer = Timer.set(600000, true, function() {
+let configtimer = Timer.set(3600000, true, function() {
 
     // status
     Cfg.set({app: {pwm: {val: speed}}});
@@ -241,7 +241,7 @@ MQTT.sub(topicsubconfig, function(conn, topic, msg) {
       Cfg.set({app: {night: {speed: obj.maxNightSpeed}}});
       apppwmnight = obj.nightFan;
       apppwmgra = obj.groupA;
-      appnighspeed = obj.maxNightSpeed;
+      appnightspeed = obj.maxNightSpeed;
       print("uploadFanConfig=false --> JA zapisujem parametre iz serverja na modul in nic ne objavim nazaj");
     } 
  }
@@ -288,13 +288,14 @@ MQTT.sub(topicsubconfig, function(conn, topic, msg) {
 
   if (obj.boost){
      // postavitev hitrosti na 4 v bazi podatkov ce je izbran boost 
-      speed = 4; 
+
      // oldspeed = Cfg.get('app.old.speed');
      // Cfg.set({app: {boost: {time: obj.boostCountDown}}});
       appboosttime = obj.boostCountDown;
-     print ("Set oldsped: ", oldspeed, "Set countdown: ", appboosttime);
+      print ("Set oldsped: ", oldspeed, "Set countdown: ", appboosttime);
 
       if (speed !== 4) {
+        speed = 4; 
         print ("Postavi hitrost na 4 na events/fan: ", speed);
         let msg = JSON.stringify({domId: apphome, userId: appuser, boost: obj.boost, speed: speed});
         print(topicpubevents, '->', msg);
@@ -337,8 +338,9 @@ MQTT.sub(topicsubconfig, function(conn, topic, msg) {
   setSpeed();
   PWM.set(apppin, 1000, speedpwm/100); 
   Timer.del(oldtimer);
-  let msg = JSON.stringify({type: "fan", domId: apphome, userId: appuser, currentFanSpeed: speed, timeChangeDirection: apppwmtime});
-  MQTT.pub(topicpubstate, msg, 1);
+ 
+     let msg = JSON.stringify({type: "fan", domId: apphome, userId: appuser, currentFanSpeed: speed, timeChangeDirection: apppwmtime});
+     MQTT.pub(topicpubstate, msg, 1);
   // objavi in takoj postavi na novo hitrost
   print("PWM set to config speed:", speedpwm);
   print(topicpubstate, '->', msg);
@@ -437,9 +439,11 @@ MQTT.sub(topicsubconfig, function(conn, topic, msg) {
   RPC.addHandler('ControlBoost', function(args) {
     //Cfg.set(args);
     print(JSON.stringify(args));
+    appmodeboost = args.app.mode.boost;
+    print(JSON.stringify(args));
     //oldspeed = Cfg.get('app.old.speed');
     //če je true postavi hitrost na 4
-    if (args.app.mode.boost){
+    if (appmodeboost){
       print("Ventilator HITROST == 4 --> BOOST");
       //Cfg.set({app: {pwm: {val: 4}}});
       speed=4;
@@ -538,7 +542,7 @@ MQTT.sub(topicsubconfig, function(conn, topic, msg) {
     }
     //zbriše prejšnji in starta nov timer, ki se ponavlja z zakasnitvijo kot nastavljeno v parametrih
     Timer.del(oldtimer);
-    let newtimer = Timer.set(app.pwm.time, Timer.REPEAT, function() {
+    let newtimer = Timer.set(apppwmtime, Timer.REPEAT, function() {
       speedpwm = 99-speed-speedpwm;
       print("PWM set to config speed:", speedpwm);
       PWM.set(apppin, 1000, speedpwm/100);
