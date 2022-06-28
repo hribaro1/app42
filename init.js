@@ -168,6 +168,150 @@ function mqttReEstablished() {
 };
 
 
+function pwmSlowSet() {
+
+        //počasi nastavljaj hitrost
+        if (speed===0){
+          PWM.set(apppin, 1000, speedpwm/100);
+          print("PWM set to % speed when 0:", speedpwm);
+         };
+
+         if (speed===1) {
+           if (speedpwm>50){
+             PWM.set(apppin, 1000, 50/100);
+             print("PWM set to 50% speed when 1:");
+             let delaytimer = Timer.set(2000, false, function () {
+               PWM.set(apppin, 1000, speedpwm/100);
+               print("PWM set to % speed when 1: ", speedpwm);
+             }, null);
+           } else {
+             PWM.set(apppin, 1000, 50/100);
+             print("PWM set to 50% speed when 1:");
+             let delaytimer = Timer.set(2000, false, function () {
+               PWM.set(apppin, 1000, speedpwm/100);
+               print("PWM set to % speed when 1: ", speedpwm);
+             }, null);
+   
+           }
+         };
+         
+         if (speed===2) {
+          if (speedpwm>50){
+            PWM.set(apppin, 1000, 25/100);
+            print("PWM set to 25% speed when 2:");
+            let delaytimer = Timer.set(2000, false, function () {
+              PWM.set(apppin, 1000, 50/100);
+              print("PWM set to 50% speed when 2:");
+            }, null);
+            let delaytimer1 = Timer.set(4000, false, function () {
+              PWM.set(apppin, 1000, 75/100);
+              print("PWM set to 75% speed when 2:");
+            }, null);
+            let delaytimer2 = Timer.set(6000, false, function () {
+              PWM.set(apppin, 1000, (speedpwm)/100);
+              print("PWM set to % speed when 2: ", speedpwm);
+            }, null);
+  
+          } else {
+            PWM.set(apppin, 1000, 75/100);
+            print("PWM set to 75% speed when 2:");
+            let delaytimer = Timer.set(2000, false, function () {
+              PWM.set(apppin, 1000, 50/100);
+              print("PWM set to 50% speed when 2:");
+            }, null);
+            let delaytimer1 = Timer.set(4000, false, function () {
+              PWM.set(apppin, 1000, 25/100);
+              print("PWM set to 25% speed when 2:");
+            }, null);
+            let delaytimer2 = Timer.set(6000, false, function () {
+              PWM.set(apppin, 1000, (speedpwm)/100);
+              print("PWM set to % speed when 2: ", speedpwm);
+            }, null);
+          }
+         };
+ 
+         if (speed===3){
+          if (speedpwm>50){
+            PWM.set(apppin, 1000, 25/100);
+            print("PWM set to 25% speed when 3:");
+            let delaytimer = Timer.set(2000, false, function () {
+              PWM.set(apppin, 1000, 50/100);
+              print("PWM set to 50% speed when 3:");
+            }, null);
+            let delaytimer1 = Timer.set(4000, false, function () {
+              PWM.set(apppin, 1000, 75/100);
+              print("PWM set to 75% speed when 3:");
+            }, null);
+            let delaytimer2 = Timer.set(6000, false, function () {
+              PWM.set(apppin, 1000, (speedpwm)/100);
+              print("PWM set to % speed when 3: ", speedpwm);
+            }, null);
+  
+          } else {
+            PWM.set(apppin, 1000, 75/100);
+            print("PWM set to 75% speed when 3:");
+            let delaytimer = Timer.set(2000, false, function () {
+              PWM.set(apppin, 1000, 50/100);
+              print("PWM set to 50% speed when 3:");
+            }, null);
+            let delaytimer1 = Timer.set(4000, false, function () {
+              PWM.set(apppin, 1000, 25/100);
+              print("PWM set to 25% speed when 3:");
+            }, null);
+            let delaytimer2 = Timer.set(6000, false, function () {
+              PWM.set(apppin, 1000, (speedpwm)/100);
+              print("PWM set to % speed when 3: ", speedpwm);
+            }, null);
+          }
+
+
+         };
+
+
+          if (speed===4){
+            if (speedpwm>50){
+              PWM.set(apppin, 1000, 25/100);
+              print("PWM set to 25% speed when 4:");
+              let delaytimer = Timer.set(2000, false, function () {
+                PWM.set(apppin, 1000, 50/100);
+                print("PWM set to 50% speed when 4:");
+              }, null);
+              let delaytimer1 = Timer.set(4000, false, function () {
+                PWM.set(apppin, 1000, 75/100);
+                print("PWM set to 75% speed when 4:");
+              }, null);
+              let delaytimer2 = Timer.set(6000, false, function () {
+                PWM.set(apppin, 1000, (speedpwm)/100);
+                print("PWM set to % speed when 4: ", speedpwm);
+              }, null);
+    
+            } else {
+              PWM.set(apppin, 1000, 75/100);
+              print("PWM set to 75% speed when 4:");
+              let delaytimer = Timer.set(2000, false, function () {
+                PWM.set(apppin, 1000, 50/100);
+                print("PWM set to 50% speed when 4:");
+              }, null);
+              let delaytimer1 = Timer.set(4000, false, function () {
+                PWM.set(apppin, 1000, 25/100);
+                print("PWM set to 25% speed when 4:");
+              }, null);
+              let delaytimer2 = Timer.set(6000, false, function () {
+                PWM.set(apppin, 1000, (speedpwm)/100);
+                print("PWM set to % speed when 4: ", speedpwm);
+              }, null);
+            }
+  
+          
+
+
+          };
+   
+
+
+ };
+
+
 // functions declarations END
 
 
@@ -206,6 +350,14 @@ let configtimer = Timer.set(3600000, true, function() {
     Cfg.set({app: {night: {speed: appnightspeed}}});
 
 }, null);
+
+
+
+let boosttimer = Timer.set(appboosttime, true, function() {
+ // define boosttimer
+}, null);
+print("Creating initial periodic boostimer: ", boosttimer);
+
 
 
 MQTT.sub(topicsubconfig, function(conn, topic, msg) {
@@ -288,7 +440,7 @@ MQTT.sub(topicsubconfig, function(conn, topic, msg) {
 
   if (obj.boost){
      // postavitev hitrosti na 4 v bazi podatkov ce je izbran boost 
-
+      appmodeboost = true;
      // oldspeed = Cfg.get('app.old.speed');
      // Cfg.set({app: {boost: {time: obj.boostCountDown}}});
       appboosttime = obj.boostCountDown;
@@ -305,16 +457,40 @@ MQTT.sub(topicsubconfig, function(conn, topic, msg) {
       SetOldSpeed();
 
       // one time timer to set boost to false and set back oldspeed
-      let boosttimer = Timer.set(appboosttime, false, function() {
+      print("Deleting boostimer within if obj.boost true clause - server: ", boosttimer);
+      Timer.del(boosttimer);
+      boosttimer = Timer.set(appboosttime, false, function() {
         speedpwm = 99-oldspeed-speedpwm;
         print("Boost time ended. Setting BOOST OFF AND speed back to previous speed:", oldspeed);
         let msg = JSON.stringify({domId: apphome, userId: appuser, boost: false, speed: oldspeed});
         print(topicpubevents, '->', msg);
         MQTT.pub(topicpubevents, msg, 1);
+
+        boosttimer = Timer.set(appboosttime, true, function() {
+          //start new periodic boosttimer
+        }, null);
+        print("Creating new boosttimer within onetimer - server: ", boosttimer);
+
       }, null);
 
-
   }else{
+    if (appmodeboost) {
+      Timer.del(boosttimer);
+      print("Deleting boostimer within else obj.boost else clause - server: ", boosttimer);
+
+      appmodeboost=false;
+      speedpwm = 99-oldspeed-speedpwm;
+      print("Boost ended manually. Setting BOOST OFF AND speed back to previous speed:", oldspeed);
+      let msg = JSON.stringify({domId: apphome, userId: appuser, boost: false, speed: oldspeed});
+      print(topicpubevents, '->', msg);
+      MQTT.pub(topicpubevents, msg, 1);
+      boosttimer = Timer.set(appboosttime, true, function() {
+        //start new periodic boosttimer
+      }, null);
+      print("Creating new periodic boosttimer within else obj.boost else clause - server: ", boosttimer);
+
+      
+    }
     oldspeed = obj.speed;
    // Cfg.set({app: {old: {speed: obj.speed}}});
     print("Oldspeed set to ", oldspeed);
@@ -349,7 +525,7 @@ MQTT.sub(topicsubconfig, function(conn, topic, msg) {
   let newtimer = Timer.set(apppwmtime, Timer.REPEAT, function() {
     speedpwm = 99-speed-speedpwm;
     print("PWM set to config speed:", speedpwm);
-    PWM.set(apppin, 1000, speedpwm/100);
+    pwmSlowSet();   
     mqttconnectionnew = MQTT.isConnected();
     mqttReEstablished();
   }, null);
@@ -426,7 +602,7 @@ MQTT.sub(topicsubconfig, function(conn, topic, msg) {
       let newtimer = Timer.set(apppwmtime, Timer.REPEAT, function() {
         speedpwm = 99-speed-speedpwm;
         print("PWM set to config speed:", speedpwm);
-        PWM.set(apppin, 1000, speedpwm/100);
+        pwmSlowSet();   
         mqttconnectionnew = MQTT.isConnected();
         mqttReEstablished();
       }, null);
@@ -440,15 +616,18 @@ MQTT.sub(topicsubconfig, function(conn, topic, msg) {
     //Cfg.set(args);
     print(JSON.stringify(args));
     appmodeboost = args.app.mode.boost;
-    print(JSON.stringify(args));
+   // print(JSON.stringify(args));
     //oldspeed = Cfg.get('app.old.speed');
     //če je true postavi hitrost na 4
     if (appmodeboost){
       print("Ventilator HITROST == 4 --> BOOST");
       //Cfg.set({app: {pwm: {val: 4}}});
       speed=4;
-    //nastavi boost timer, da ugasne oziroma prestavi nazaj na oldspeed
-      let boosttimer = Timer.set(appboosttime, false, function() {
+    //nastavi boost timer, da ugaoost sne oziroma prestavi nazaj na oldspeed
+      print("Deleting boostimer within if boost true clause - html: ", boosttimer);
+      Timer.del(boosttimer);
+      boosttimer = Timer.set(appboosttime, false, function() {
+        //onetime boosttimer
         appmodeboost=false;
         speed = oldspeed;
         //Cfg.set({app: {mode: {boost: false}}});
@@ -459,21 +638,39 @@ MQTT.sub(topicsubconfig, function(conn, topic, msg) {
         print("Boost je koncan--> boost set to: ", appmodeboost);
         print("PWM set to config speed:", speedpwm);
         PWM.set(apppin, 1000, speedpwm/100);
-      }, null);
+        print("ONETIME boosttimer elapsed - html: ", boosttimer);
+        boosttimer = Timer.set(appboosttime, true, function() {
+          //start new periodic boosttimer
+        }, null);
+        print("Creating new boosttimer within onetimer - html: ", boosttimer);
 
-      if (MQTT.isConnected()){
-        let msg = JSON.stringify({domId: apphome, userId: appuser, boost: appmodeboost, auto: appmodeavto, summer: appmodesummer, night: appmodenight, speed: speed});   
-        //let msg = JSON.stringify({domId: Cfg.get('app.home'), userId: Cfg.get('app.user'), boost: Cfg.get('app.mode.boost'), auto: Cfg.get('app.mode.avto'), summer: Cfg.get('app.mode.summer'), night: Cfg.get('app.mode.night'), speed: speed});
-        print(topicpubeventshtml, '->', msg);
-        MQTT.pub(topicpubeventshtml, msg, 1);
-      };
+        
+        if (MQTT.isConnected()){
+          let msg = JSON.stringify({domId: apphome, userId: appuser, boost: appmodeboost, auto: appmodeavto, summer: appmodesummer, night: appmodenight, speed: speed});   
+          //let msg = JSON.stringify({domId: Cfg.get('app.home'), userId: Cfg.get('app.user'), boost: Cfg.get('app.mode.boost'), auto: Cfg.get('app.mode.avto'), summer: Cfg.get('app.mode.summer'), night: Cfg.get('app.mode.night'), speed: speed});
+          print(topicpubeventshtml, '->', msg);
+          MQTT.pub(topicpubeventshtml, msg, 1);
+        };
+
+      }, null);
+      print ("ONE TIME BOOST TIMER CREATED - HTML: ", boosttimer);
+
 
     } else {
    //če je false postavi  hitrost na oldspeed  
+      Timer.del(boosttimer);
+      //delete boostimer - periodic or onetime
+      print("Deleted boosttimer within else if clause - html: ", boosttimer);
       print("Ventilator HITROST == BOOST--> OLDSPEED");
       speed= oldspeed;
       //Cfg.set({app: {pwm: {val: speed}}});
-    }
+      boosttimer = Timer.set(appboosttime, true, function() {
+        //start new periodic boosttimer
+      }, null);
+
+      print("Creating new periodic boosttimer within else if clause - html: ", boosttimer);
+      
+    };
 
 
     setSpeed();
@@ -489,18 +686,15 @@ MQTT.sub(topicsubconfig, function(conn, topic, msg) {
     };
     //zbriše prejšnji in starta nov timer, ki se ponavlja z zakasnitvijo kot nastavljeno v parametrih
       Timer.del(oldtimer);
+
       let newtimer = Timer.set(apppwmtime, Timer.REPEAT, function() {
        speedpwm = 99-speed-speedpwm;
        print("PWM set to config speed:", speedpwm);
-       PWM.set(apppin, 1000, speedpwm/100);
+       pwmSlowSet();   
        mqttconnectionnew = MQTT.isConnected();
        mqttReEstablished();
       }, null);
       oldtimer = newtimer;
-
-
-
-
   });
 
   RPC.addHandler('ControlAuto', function(args) {
@@ -545,7 +739,7 @@ MQTT.sub(topicsubconfig, function(conn, topic, msg) {
     let newtimer = Timer.set(apppwmtime, Timer.REPEAT, function() {
       speedpwm = 99-speed-speedpwm;
       print("PWM set to config speed:", speedpwm);
-      PWM.set(apppin, 1000, speedpwm/100);
+      pwmSlowSet();      
       mqttconnectionnew = MQTT.isConnected();
       mqttReEstablished();
     }, null);
@@ -677,9 +871,9 @@ MQTT.sub(topicsubconfig, function(conn, topic, msg) {
           let newtimer = Timer.set(apppwmtime, Timer.REPEAT, function() {
              speedpwm = 99-speed-speedpwm;
              print("PWM set to config speed:", speedpwm);
-             PWM.set(apppin, 1000, speedpwm/100);
-          mqttconnectionnew = MQTT.isConnected();
-          mqttReEstablished();
+             pwmSlowSet();   
+             mqttconnectionnew = MQTT.isConnected();
+             mqttReEstablished();
           }, null);
           oldtimer = newtimer;
           //konec nastavljanja hitrosti
@@ -710,9 +904,9 @@ MQTT.sub(topicsubconfig, function(conn, topic, msg) {
           let newtimer = Timer.set(apppwmtime, Timer.REPEAT, function() {
              speedpwm = 99-speed-speedpwm;
              print("PWM set to config speed:", speedpwm);
-             PWM.set(apppin, 1000, speedpwm/100);
-          mqttconnectionnew = MQTT.isConnected();
-          mqttReEstablished();
+             pwmSlowSet();   
+             mqttconnectionnew = MQTT.isConnected();
+             mqttReEstablished();
           }, null);
           oldtimer = newtimer;
           //konec nastavljanja hitrosti
@@ -743,9 +937,9 @@ MQTT.sub(topicsubconfig, function(conn, topic, msg) {
           let newtimer = Timer.set(apppwmtime, Timer.REPEAT, function() {
              speedpwm = 99-speed-speedpwm;
              print("PWM set to config speed:", speedpwm);
-             PWM.set(apppin, 1000, speedpwm/100);
-          mqttconnectionnew = MQTT.isConnected();
-          mqttReEstablished();
+             pwmSlowSet();   
+             mqttconnectionnew = MQTT.isConnected();
+             mqttReEstablished();
           }, null);
           oldtimer = newtimer;
           //konec nastavljanja hitrosti
@@ -776,9 +970,9 @@ MQTT.sub(topicsubconfig, function(conn, topic, msg) {
           let newtimer = Timer.set(apppwmtime, Timer.REPEAT, function() {
              speedpwm = 99-speed-speedpwm;
              print("PWM set to config speed:", speedpwm);
-             PWM.set(apppin, 1000, speedpwm/100);
-          mqttconnectionnew = MQTT.isConnected();
-          mqttReEstablished();
+             pwmSlowSet();   
+             mqttconnectionnew = MQTT.isConnected();
+             mqttReEstablished();
           }, null);
           oldtimer = newtimer;
           //konec nastavljanja hitrosti
@@ -791,12 +985,17 @@ MQTT.sub(topicsubconfig, function(conn, topic, msg) {
           // potrebno nastaviti BOOST kot v html
           if (appmodeboost){
             appmodeboost = false;
+            Timer.del(boosttimer);
             //Cfg.set({app: {mode: {boost: false}}});
-
+            print("DELETE boosttimer if clause true - remote: ", boosttimer);
             print("BOOST gre na OFF in HITROST == BOOST--> OLDSPEED");
             speed = oldspeed;
             //Cfg.set({app: {pwm: {val: speed}}});
 
+            boosttimer = Timer.set(appboosttime, true, function() {
+              //start new periodic boosttimer
+            }, null);
+            print("Creating new periodic boostimer within if clause true - remote: ", boosttimer);
           //konec nastavljanja hitrosti            
 
           }  else {
@@ -808,7 +1007,8 @@ MQTT.sub(topicsubconfig, function(conn, topic, msg) {
             speed=4;
           //konec nastavljanja hitrosti
             //nastavi boost timer, da ugasne oziroma prestavi nazaj na oldspeed
-            let boosttimer = Timer.set(appboosttime, false, function() {
+            Timer.del(boosttimer);
+            boosttimer = Timer.set(appboosttime, false, function() {
               appmodeboost = false;
 
               //Cfg.set({app: {mode: {boost: false}}});
@@ -819,13 +1019,20 @@ MQTT.sub(topicsubconfig, function(conn, topic, msg) {
               print("Boost je koncan--> boost set to: ", appmodeboost);
               print("PWM set to config speed:", speedpwm);
               PWM.set(apppin, 1000, speedpwm/100);
-               
+              print("ONETIME boostimer elapsed - remote: ", boosttimer);
+              boosttimer = Timer.set(appboosttime, true, function() {
+                //start new periodic boosttimer
+              }, null);
+              print("Creating new boostimer within onetimer - remote: ", boosttimer);
+              
               if (MQTT.isConnected()){
                 let msg = JSON.stringify({domId: apphome, userId: appuser, boost: appmodeboost, auto: appmodeavto, summer: appmodesummer, night: appmodenight, speed: speed});
                 print(topicpubeventshtml, '->', msg);
                 MQTT.pub(topicpubeventshtml, msg, 1);
               };
             }, null);
+            print("Creating new ONETIME boostimer - remote: ", boosttimer);
+
           }
 
           setSpeed();
@@ -843,7 +1050,7 @@ MQTT.sub(topicsubconfig, function(conn, topic, msg) {
           let newtimer = Timer.set(apppwmtime, Timer.REPEAT, function() {
             speedpwm = 99-speed-speedpwm;
             print("PWM set to config speed:", speedpwm);
-            PWM.set(apppin, 1000, speedpwm/100);
+            pwmSlowSet();   
             mqttconnectionnew = MQTT.isConnected();
             mqttReEstablished();
           }, null);
@@ -937,7 +1144,7 @@ MQTT.sub(topicsubconfig, function(conn, topic, msg) {
             let newtimer = Timer.set(apppwmtime, Timer.REPEAT, function() {
               speedpwm = 99-speed-speedpwm;
               print("PWM set to config speed:", speedpwm);
-              PWM.set(apppin, 1000, speedpwm/100);
+              pwmSlowSet();   
               mqttconnectionnew = MQTT.isConnected();
               mqttReEstablished();
             }, null);
